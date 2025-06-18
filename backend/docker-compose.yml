@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: .
+    container_name: backend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    restart: always
+    entrypoint: sh -c "./wait-for-it.sh db:5432 -- sh ./entrypoint.sh"
+
+  db:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: grupoA_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    logging:
+      driver: "json-file"
+
+volumes:
+  pgdata:
