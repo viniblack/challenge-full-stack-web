@@ -9,11 +9,10 @@ export const registerStudentSchema = z.object({
     .email('Formato de email inválido'),
 
   ra: z.string()
-    .min(8, 'RA deve ter pelo menos 8 caracteres'),
+    .regex(/^\d{8}$/, 'RA deve conter exatamente 8 números'),
 
   cpf: z.string()
-    .min(11, 'CPF deve ter pelo menos 11 caracteres')
-    .max(14, 'CPF não pode exceder 14 caracteres'),
+    .regex(/^\d{11}$/, 'CPF deve conter exatamente 11 números'),
 });
 
 export const updateStudentSchema = z.object({

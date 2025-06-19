@@ -32,7 +32,10 @@ const studentController = {
         data: { name, email, ra, cpf },
       });
 
-      res.status(201).json(student);
+      res.status(201).json({
+        message: "Aluno criado com sucesso",
+        student
+      });
 
     } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
@@ -107,7 +110,7 @@ const studentController = {
         where: { id: req.params.id },
         data: { name, email },
       });
-      res.json(student);
+      res.json({message: "Aluno atualizado com sucesso", student});
     } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
         if (err.code === 'P2002') {
