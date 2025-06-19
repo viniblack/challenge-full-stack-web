@@ -15,7 +15,9 @@
     "@fontsource/roboto": "5.2.5",
     "@mdi/font": "7.4.47",
     "vue": "^3.5.13",
-    "vuetify": "^3.8.1"
+    "vue-toastification": "^2.0.0-rc.5",
+    "vuetify": "^3.8.1",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.0",
