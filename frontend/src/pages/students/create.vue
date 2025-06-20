@@ -10,6 +10,7 @@
   import { useRouter } from 'vue-router'
   import { useToast } from 'vue-toastification'
   import StudentForm from '@/components/StudentForm.vue'
+  import ToastMessage from '@/components/ToastMessage.vue'
   import studentAPI from '@/lib/http/studentAPI'
 
   const toast = useToast()
@@ -22,7 +23,16 @@
       toast.success(res.message)
       router.push('/students')
     } catch (error) {
-      toast.error('Erro ao cadastrar estudante')
+      toast(
+        {
+          component: ToastMessage,
+          props: {
+            title: error.response.data.error,
+            description: error.response.data.message,
+          },
+        },
+        { type: 'error' },
+      )
       console.error(error)
     }
   }
