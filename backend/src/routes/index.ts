@@ -1,7 +1,10 @@
 import express from "express";
-import studentController from "../controllers/StudentController";
+import prisma from '../client';
+import StudentController from "../controllers/StudentController";
 import { registerStudentSchema, updateStudentSchema, validateSchema } from "../schemas/studentSchema";
+
 const router = express.Router();
+const studentController = StudentController(prisma);
 
 router.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'API funcionando corretamente' });

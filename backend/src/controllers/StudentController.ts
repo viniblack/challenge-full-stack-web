@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
-import prisma from '../client';
-import { RegisterInput } from "../schemas/studentSchema.js";
-import { Prisma } from '@prisma/client';
+import { RegisterInput } from '../schemas/studentSchema';
+import { PrismaClient, Prisma } from '@prisma/client';
 
-const studentController = {
+const StudentController = (prisma: PrismaClient) => ({
   /**
    * POST /api/student - Registro de novo estudante
    */
@@ -38,13 +37,11 @@ const studentController = {
       });
 
     } catch (err) {
-      if (err instanceof Prisma.PrismaClientKnownRequestError) {
-        if (err.code === 'P2002') {
-          return res.status(409).json({
-            error: 'Estudante já cadastrado',
-            message: `Já existe um estudante com o mesmo ${err.meta?.target}`,
-          });
-        }
+      if ((err as any).code === 'P2002') {
+        return res.status(409).json({
+          error: 'Estudante já cadastrado',
+          message: `Já existe um estudante com o mesmo ${(err as any).meta?.target}`,
+        });
       }
 
       const errorMessage = err instanceof Error ? err.message : 'Erro interno';
@@ -110,16 +107,18 @@ const studentController = {
         where: { id: req.params.id },
         data: { name, email },
       });
-      res.json({message: "Aluno atualizado com sucesso", student});
+      res.json({
+        message: "Aluno atualizado com sucesso",
+        student
+      });
     } catch (err) {
-      if (err instanceof Prisma.PrismaClientKnownRequestError) {
-        if (err.code === 'P2002') {
-          return res.status(409).json({
-            error: 'Dados duplicados',
-            message: `Já existe um estudante com o mesmo ${err.meta?.target}`,
-          });
-        }
+      if ((err as any).code === 'P2002') {
+        return res.status(409).json({
+          error: 'Dados duplicados',
+          message: `Já existe um estudante com o mesmo ${(err as any).meta?.target}`,
+        });
       }
+
       const errorMessage = err instanceof Error ? err.message : 'Erro interno';
       res.status(500).json({
         message: "Erro ao atualizar aluno",
@@ -129,8 +128,8 @@ const studentController = {
   },
 
   /**
-  * DELETE /api/student/:id - Apaga estudante
-  */
+   * DELETE /api/student/:id - Apaga estudante
+   */
   delete: async (req: Request, res: Response) => {
     try {
       await prisma.student.delete({
@@ -145,6 +144,6 @@ const studentController = {
       });
     }
   },
-};
+});
 
-export default studentController;
+export default StudentController;
