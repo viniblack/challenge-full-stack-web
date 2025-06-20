@@ -32,8 +32,8 @@
     />
 
     <v-row class="mt-4" justify="space-between">
-      <v-btn color="secondary" @click="router.back()">Cancelar</v-btn>
-      <v-btn color="primary" type="submit">Salvar</v-btn>
+      <v-btn color="red-accent-4" @click="router.back()">Cancelar</v-btn>
+      <v-btn color="success" type="submit">Salvar</v-btn>
     </v-row>
   </v-form>
 </template>

@@ -21,10 +21,11 @@ const StudentController = (prisma: PrismaClient) => ({
       });
 
       if (existingStudent) {
-        return res.status(409).json({
+        res.status(409).json({
           error: 'Estudante já cadastrado',
           message: 'Esse estudante já está cadastrado'
         });
+        return
       }
 
       const student = await prisma.student.create({
@@ -38,10 +39,11 @@ const StudentController = (prisma: PrismaClient) => ({
 
     } catch (err) {
       if ((err as any).code === 'P2002') {
-        return res.status(409).json({
+        res.status(409).json({
           error: 'Estudante já cadastrado',
           message: `Já existe um estudante com o mesmo ${(err as any).meta?.target}`,
         });
+        return
       }
 
       const errorMessage = err instanceof Error ? err.message : 'Erro interno';
@@ -80,10 +82,11 @@ const StudentController = (prisma: PrismaClient) => ({
       });
 
       if (!student) {
-        return res.status(404).json({
+        res.status(404).json({
           error: 'Estudante não encontrado',
           message: 'Os dados do perfil não foram encontrados'
         });
+        return
       }
 
       res.json(student);
@@ -113,10 +116,11 @@ const StudentController = (prisma: PrismaClient) => ({
       });
     } catch (err) {
       if ((err as any).code === 'P2002') {
-        return res.status(409).json({
+        res.status(409).json({
           error: 'Dados duplicados',
           message: `Já existe um estudante com o mesmo ${(err as any).meta?.target}`,
         });
+        return
       }
 
       const errorMessage = err instanceof Error ? err.message : 'Erro interno';

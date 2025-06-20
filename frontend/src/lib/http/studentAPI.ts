@@ -22,6 +22,7 @@ export type UpdateStudentRequest = {
 }
 
 export type StudentResponse = {
+  message: string
   student: {
     name: string
     email: string

@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="my-4" justify="space-between">
       <h2>Estudantes</h2>
-      <v-btn color="primary" @click="router.push('/students/create')">
+      <v-btn color="success" @click="router.push('/students/create')">
         Novo
       </v-btn>
     </v-row>
@@ -47,7 +47,9 @@
           <v-btn
             color="secondary"
             @click="deleteDialog = false"
-          >Cancelar</v-btn>
+          >
+            Cancelar
+          </v-btn>
           <v-btn color="red" @click="confirmDelete">Remover</v-btn>
         </v-card-actions>
       </v-card>

@@ -1,7 +1,7 @@
 import express from "express";
-import prisma from '../client';
-import StudentController from "../controllers/StudentController";
-import { registerStudentSchema, updateStudentSchema, validateSchema } from "../schemas/studentSchema";
+import prisma from '../client.js';
+import StudentController from "../controllers/StudentController.js";
+import { registerStudentSchema, updateStudentSchema, validateSchema } from "../schemas/studentSchema.js";
 
 const router = express.Router();
 const studentController = StudentController(prisma);
@@ -35,4 +35,4 @@ router.patch("/student/:id", validateSchema(updateStudentSchema), studentControl
 */
 router.delete("/student/:id", studentController.delete);
 
-export { router };
+export default router

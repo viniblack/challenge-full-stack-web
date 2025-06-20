@@ -18,13 +18,13 @@
   const student = ref({ name: '', email: '', ra: '', cpf: '' })
 
   onMounted(async () => {
-    const id = route.params.id
+    const id = (route.params as { id: string }).id
     const res = await studentAPI.getById(id)
     student.value = res
   })
 
   async function handleSubmit (data: any) {
-    const id = route.params.id
+    const id = (route.params as { id: string }).id
     const res = await studentAPI.update(id, data)
     toast.success(res.message)
     router.push('/students')
