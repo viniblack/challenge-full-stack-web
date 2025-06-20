@@ -2,8 +2,18 @@
   <v-container>
     <v-row class="my-4" justify="space-between">
       <h2>Estudantes</h2>
-      <v-btn color="primary" @click="router.push('/students/create')">Novo</v-btn>
+      <v-btn color="primary" @click="router.push('/students/create')">
+        Novo
+      </v-btn>
     </v-row>
+
+    <v-text-field
+      v-model="search"
+      class="mb-4"
+      clearable
+      label="Buscar estudante"
+      prepend-inner-icon="mdi-magnify"
+    />
 
     <v-data-table
       class="elevation-1"
@@ -12,6 +22,7 @@
       :items="students"
       :loading="loading"
       loading-text="Carregando estudantes..."
+      :search="search"
     >
       <template #item.cpf="{ item }">
         {{ formatCPF(item.cpf) }}
@@ -27,14 +38,16 @@
       </template>
     </v-data-table>
 
-    <!-- Modal de confirmação -->
     <v-dialog v-model="deleteDialog" max-width="500">
       <v-card>
         <v-card-title class="headline">Confirmar remoção</v-card-title>
         <v-card-text>Você tem certeza que deseja remover este estudante?</v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="secondary" @click="deleteDialog = false">Cancelar</v-btn>
+          <v-btn
+            color="secondary"
+            @click="deleteDialog = false"
+          >Cancelar</v-btn>
           <v-btn color="red" @click="confirmDelete">Remover</v-btn>
         </v-card-actions>
       </v-card>
@@ -53,6 +66,7 @@
   const students = ref<Student[]>([])
   const loading = ref(false)
   const router = useRouter()
+  const search = ref('')
 
   const headers = [
     { title: 'ID', key: 'id' },

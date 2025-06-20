@@ -176,8 +176,6 @@ O frontend utiliza **Vue 3 com Composition API**, adotando uma arquitetura basea
 # 🔧 Melhorias Futuras
 
 - Criar testes unitários para componentes e páginas do frontend.
-- Adicionar filtros nas colunas da tabela de alunos.
-- Implementar campo de busca por aluno.
 - Adicionar autenticação de usuários.
 - Implementar lógica de sessão para usuários autenticados.
 
